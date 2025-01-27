@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Citas Médicas</title>
+    <!-- Bootstrap CSS -->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+
+  <body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          Citas Médicas <img src="favicon.png" width="25" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <!-- Menú Paciente -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="dropdownPaciente"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Paciente
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownPaciente">
+                <li><a class="dropdown-item" href="#" id="mnuAltaPaciente">Alta</a></li>
+                <li><a class="dropdown-item" href="#" id="mnuBuscarPaciente">Buscar</a></li>
+                <li><a class="dropdown-item" href="#" id="mnuListadoPaciente">Listado</a></li>
+                <li><a class="dropdown-item" href="#" id="mnuListadoFiltradoPaciente">Listado Filtrado</a></li>
+              </ul>
+            </li>
+            <!-- Menú Cita -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="dropdownCita"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Cita
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownCita">
+                <li><a class="dropdown-item" href="#" id="mnuAltaCita">Alta</a></li>
+                <li><a class="dropdown-item" href="#" id="mnuBuscarCita">Buscar</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container mt-4">
+      <!-- Formulario Filtro Pacientes -->
+      <div id="frmListadoFiltradoPaciente" class="d-none">
+        <h3>Filtro de Pacientes</h3>
+        <form>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="filtroFechaInicioPaciente" class="form-label">Fecha Inicio:</label>
+              <input type="date" id="filtroFechaInicioPaciente" class="form-control" />
+            </div>
+            <div class="col-md-6">
+              <label for="filtroFechaFinPaciente" class="form-label">Fecha Fin:</label>
+              <input type="date" id="filtroFechaFinPaciente" class="form-control" />
+            </div>
+          </div>
+          <button type="button" id="btnFiltrarPacientes" class="btn btn-secondary">Filtrar</button>
+        </form>
+        <div id="listadoFiltradoPacientes" class="mt-4"></div>
+      </div>
+
+      <!-- Listado de Pacientes -->
+      <div id="frmListadoPaciente" class="d-none">
+        <h3>Listado de Pacientes</h3>
+        <div id="listadoPacientes" class="mt-4"></div>
+      </div>
+
+      <!-- Formulario Alta de Paciente -->
+      <form id="frmAltaPaciente" class="d-none">
+        <h3>Alta de Paciente</h3>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="nombrePaciente" class="form-label">Nombre:</label>
+            <input type="text" id="nombrePaciente" class="form-control" placeholder="Nombre" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="emailPaciente" class="form-label">Email:</label>
+            <input type="email" id="emailPaciente" class="form-control" placeholder="Email" required />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="fechaNacimientoPaciente" class="form-label">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimientoPaciente" class="form-control" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="telefonoPaciente" class="form-label">Teléfono:</label>
+            <input type="text" id="telefonoPaciente" class="form-control" placeholder="Teléfono" required />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="direccionPaciente" class="form-label">Dirección:</label>
+          <input type="text" id="direccionPaciente" class="form-control" placeholder="Dirección" />
+        </div>
+        <button type="button" class="btn btn-primary" id="btnAltaPaciente">Guardar</button>
+      </form>
+
+      <!-- Formulario Alta de Cita -->
+      <form id="frmAltaCita" class="d-none">
+        <h3>Alta de Cita Médica</h3>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="lstPacientes" class="form-label">Paciente:</label>
+            <select id="lstPacientes" class="form-control" required>
+              <option value="">Seleccione un paciente</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="fechaCita" class="form-label">Fecha:</label>
+            <input type="datetime-local" id="fechaCita" class="form-control" required />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="razonCita" class="form-label">Razón:</label>
+          <textarea id="razonCita" class="form-control" placeholder="Razón de la Cita"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="diagnosticoCita" class="form-label">Diagnóstico:</label>
+          <textarea id="diagnosticoCita" class="form-control" placeholder="Diagnóstico"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="doctorCita" class="form-label">Doctor de la cita:</label>
+          <input type="text" id="doctorCita" class="form-control" placeholder="Médico Asignado" required />
+        </div>
+        <div class="mb-3">
+          <label for="estadoCita" class="form-label">Estado:</label>
+          <select id="estadoCita" class="form-control" required>
+            <option value="">Seleccione el estado</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Confirmada">Confirmada</option>
+            <option value="Cancelada">Cancelada</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-primary" id="btnAltaCita">Guardar</button>
+      </form>
+
+      <form id="frmModificarPaciente" class="d-none">
+        <h3>Modificar Paciente</h3>
+        <div class="mb-3">
+          <label for="txtModIdPaciente" class="form-label">ID</label>
+          <input type="text" id="txtModIdPaciente" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+          <label for="txtModNombrePaciente" class="form-label">Nombre</label>
+          <input type="text" id="txtModNombrePaciente" class="form-control" placeholder="Nombre" required />
+        </div>
+        <div class="mb-3">
+          <label for="txtModEmailPaciente" class="form-label">Email</label>
+          <input type="email" id="txtModEmailPaciente" class="form-control" placeholder="Email" required />
+        </div>
+        <div class="mb-3">
+          <label for="txtModTelefonoPaciente" class="form-label">Teléfono</label>
+          <input type="text" id="txtModTelefonoPaciente" class="form-control" placeholder="Teléfono" required />
+        </div>
+        <div class="mb-3">
+          <label for="txtModFechaNacimientoPaciente" class="form-label">Fecha de Nacimiento</label>
+          <input type="date" id="txtModFechaNacimientoPaciente" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="txtModDireccionPaciente" class="form-label">Dirección</label>
+          <input type="text" id="txtModDireccionPaciente" class="form-control" placeholder="Dirección" />
+        </div>
+        <button type="button" class="btn btn-primary" onclick="procesarModificarPaciente()">Guardar Cambios</button>
+      </form>      
+    </div>
+
+    <!-- Scripts -->
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="js/objeto.js"></script>
+    <script src="js/codigo.js"></script>
+  </body>
+</html>
